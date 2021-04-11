@@ -6,7 +6,7 @@ dnsauthcom 192.168.0.10
 dnswebsite 192.168.0.100  
 trusted 192.168.0.101
 
-dnsattacker 192.168.0.150
+dnsattacker 192.168.0.150  
 attacker 192.168.0.151
 
 dnsrecursive 192.168.0.200  

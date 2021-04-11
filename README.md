@@ -1,12 +1,15 @@
 # TOPOLOGY
 
 dnsroot 192.166.0.1  
-dnscom 192.168.0.10
+dnsauthcom 192.168.0.10
 
 dnswebsite 192.168.0.100  
-website 192.168.0.101
+trusted 192.168.0.101
 
-dnsclient 192.168.0.200  
+dnsattacker 192.168.0.150
+attacker 192.168.0.151
+
+dnsrecursive 192.168.0.200  
 client 192.168.0.201
 
 ---

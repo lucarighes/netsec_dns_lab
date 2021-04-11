@@ -1,16 +1,5 @@
 # TOPOLOGY
-
-dnsroot 192.166.0.1  
-dnsauthcom 192.168.0.10
-
-dnswebsite 192.168.0.100  
-trusted 192.168.0.101
-
-dnsattacker 192.168.0.150  
-attacker 192.168.0.151
-
-dnsrecursive 192.168.0.200  
-client 192.168.0.201
+![](https://github.com/lucarighes/netsec_dns_lab/blob/main/TOPO.png)
 
 ---
 

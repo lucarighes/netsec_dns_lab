@@ -1,5 +1,5 @@
 $TTL   60000
-@               IN      SOA     dnswebsite.website.com.    root.dnswebsite.website.com. (
+@               IN      SOA     dnsattacker.attacker.com.    root.dnsattacker.attacker.com. (
                         2006031201 ; serial
                         28800 ; refresh
                         14400 ; retry
@@ -7,7 +7,7 @@ $TTL   60000
                         0 ; negative cache ttl
                         )
 
-@        		 IN      NS      dnswebsite.website.com.
-dnswebsite.website.com. IN	A 192.168.0.100
+@        		 IN      NS      dnsattacker.attacker.com.
+dnsattacker.attacker.com. IN	A 192.168.0.150
 
-trusted  IN      A       192.168.0.101
+attacker  IN      A       192.168.0.151

@@ -10,9 +10,10 @@ sudo kathara lstart #start
 sudo kathara lclean #stop
 sudo kathara wipe #delete
 sudo kathara list #show instances
-tc qdisc add dev eth0 root netem delay 200ms #add a constant delay to interface eth0ù
+tc qdisc add dev eth0 root netem delay 200ms #add a constant delay to interface eth0
 tc qdisc show  dev eth0 #display active rules
 tc qdisc del dev eth0 root #remove all rules
+bash install.sh #install python + scapy
 ```
 
 ---
@@ -36,5 +37,5 @@ rndc reload
 # NS
 
 ```bash
-nslookup website.com
+nslookup trusted.website.com --> 192.168.0.101
 ```

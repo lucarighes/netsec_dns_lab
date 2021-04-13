@@ -1,5 +1,5 @@
 #!/bin/bash
 
-sudo docker pull lucarighes/attacker:first
-sudo docker tag lucarighes/attacker:first attacker
+sudo docker pull lucarighes/attacker:latest
+sudo docker tag lucarighes/attacker:latest attacker
 

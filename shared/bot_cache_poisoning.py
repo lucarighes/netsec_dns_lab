@@ -2,7 +2,7 @@ from scapy.all import *
 from flask import Flask, request
 import threading
 
-app = Flask(__name__)
+app = Flask("cache")
 src_ip = "192.168.0.100"
 mal_ip = "192.168.0.151"
 dst_ip = "192.168.0.200"
@@ -37,4 +37,4 @@ def start_attack():
 
 
 if __name__ == "__main__":
-	app.run(debug = True, host = '0.0.0.0', port = 8888)
+	app.run(host = '0.0.0.0', port = 8888)

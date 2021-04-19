@@ -2,9 +2,8 @@ import requests
 from scapy.all import *
 import threading
 
-src_ip="192.168.0.100"
-dst_ip="192.168.0.200"
-mal_ip="192.168.0.151"
+dst_ip="192.168.0.100"
+src_ip="192.168.0.200"
 
 
 if __name__ == "__main__":
@@ -21,7 +20,7 @@ if __name__ == "__main__":
 	print("Waiting for new DNS requests...")
 	
 	while 1:
-		sniffed_packet=sniff(iface="eth0", filter="src host " + dst_ip + " and dst host " + src_ip + " and dst port 53", count=1)
+		sniffed_packet=sniff(iface="eth0", filter="src host " + src_ip + " and dst host " + dst_ip + " and dst port 53", count=1)
 		if sniffed_packet[0].haslayer(DNS):
 			dns=sniffed_packet[0].getlayer(DNS)
 			qid=dns.id

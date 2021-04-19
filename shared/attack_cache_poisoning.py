@@ -8,7 +8,17 @@ mal_ip="192.168.0.151"
 
 
 if __name__ == "__main__":
-	print("[*] Program is sniffing packets")
+	print("""
+     _.--**--._                                           _.--**--._
+    /  _    _  \\                                         /  _    _  \\
+    ( (_\  /_) )                                         ( (_\  /_) )
+{ \._\   /\   /_./ }                                 { \._\   /\   /_./ }
+/_*=-.}______{.-=*_\\   CACHE POISONING SIMULATION    /_*=-.}______{.-=*_\\
+ _  _.=(****)=._  _                                   _  _.=(****)=._  _
+(_'*_.-*`~~`*-._*'_)                                 (_'*_.-*`~~`*-._*'_)
+ {_*            *_}                                   {_*            *_}
+	""")
+	print("Waiting for new DNS requests...")
 	
 	while 1:
 		sniffed_packet=sniff(iface="eth0", filter="src host " + dst_ip + " and dst host " + src_ip + " and dst port 53", count=1)

@@ -14,6 +14,7 @@ tc qdisc add dev eth0 root netem delay 200ms #add a constant delay to interface 
 tc qdisc show  dev eth0 #display active rules
 tc qdisc del dev eth0 root #remove all rules
 bash install.sh #install python + scapy
+ip.dst == 192.168.0.201 && ip.src == 192.168.0.200 && udp.port == 53 && dns.flags.rcode == 0000 #wireshark filter to sniff only the DNS error-free answers from the recursive server to the client
 ```
 
 ---

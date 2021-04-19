@@ -5,7 +5,16 @@ src_ip="192.168.0.200"
 dst_ip="192.168.0.10"
 
 if __name__ == "__main__":
-	print("KAMINSKY SIMULATION")
+	print("""
+     _.--**--._                                   _.--**--._
+    /  _    _  \\                                 /  _    _  \\
+    ( (_\  /_) )                                 ( (_\  /_) )
+{ \._\   /\   /_./ }                         { \._\   /\   /_./ }
+/_*=-.}______{.-=*_\\   KAMINSKY SIMULATION   /_*=-.}______{.-=*_\\
+ _  _.=(****)=._  _                           _  _.=(****)=._  _
+(_'*_.-*`~~`*-._*'_)                         (_'*_.-*`~~`*-._*'_)
+ {_*            *_}                           {_*            *_}
+""")
 	print("Waiting for new DNS requests...")
 	while 1:
 		sniffed_packet=sniff(iface="eth0", filter="src host " + src_ip + " and dst host " + dst_ip + " and dst port 53", count=1)

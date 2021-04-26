@@ -4,4 +4,4 @@
 rndc flush
 rndc reload
 
-echo "The cash is clean now!" 
+echo "The cache is clean now!" 

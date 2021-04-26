@@ -6,8 +6,8 @@ $TTL   60000
                         3600000 ; expire
                         0 ; negative cache ttl
                         )
-@                   IN      NS      dnsauthcom.com.
-dnsauthcom.com.         IN      A       192.168.0.10
+@                   	  IN      NS      dnsauthcom.com.
+dnsauthcom.com.          IN      A       192.168.0.10
 
 website.com.             IN      NS      dnswebsite.website.com.
 dnswebsite.website.com.  IN      A       192.168.0.100
